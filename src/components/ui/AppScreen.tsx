@@ -1,4 +1,5 @@
 import {
+  Platform,
   SafeAreaView,
   StatusBar,
   StyleSheet,
@@ -6,16 +7,20 @@ import {
 } from 'react-native';
 import React from 'react';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {useTheme} from '../../theme/ThemeContext';
 
-interface SafeStatusBar {
+interface AppScreenProps {
   children: React.ReactNode;
 }
 
-const SafeStatusBar = ({children}: SafeStatusBar): JSX.Element => {
-  const isDarkMode = useColorScheme() === 'dark';
-
+export const AppScreen: React.FC<AppScreenProps> = ({
+  children,
+}): JSX.Element => {
+  const {isDarkMode, themeColors} = useTheme();
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: themeColors.background,
+    flex: 1,
+    // paddingTop: Platform.OS === 'android' ? 25 : 0   // resolve notch overlap in android
   };
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -27,7 +32,5 @@ const SafeStatusBar = ({children}: SafeStatusBar): JSX.Element => {
     </SafeAreaView>
   );
 };
-
-export default SafeStatusBar;
 
 const styles = StyleSheet.create({});
