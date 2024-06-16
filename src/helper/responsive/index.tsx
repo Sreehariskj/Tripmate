@@ -13,9 +13,22 @@ export const ms = (size: number) => {
   return moderateScale(size);
 };
 
-//  const useVw = () => {
+export const useViewPort = () => {
+  const {height, width} = useWindowDimensions();
+  const setVw = (val: number) => {
+    const result = val * (width / 100);
+    return result;
+  };
+  const setVh = (val: number) => {
+    const result = val * (height / 100);
+    return result;
+  };
+  const values = {setVh, setVw};
+  return values;
+};
+// const useVw = () => {
 //   const {width} = useWindowDimensions();
-//   const result =  width;
+//   const result = width;
 //   return result;
 // };
 // export const useVh = () => {
