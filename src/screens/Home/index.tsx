@@ -10,10 +10,11 @@ import {BannerCard} from '../../components/BannerCard';
 import {ItemSeparator} from '../../components/ui/ItemSeparator';
 import {AppButton} from '../../components/ui/AppButton';
 import {AppText} from '../../components/ui/AppText';
-import {BANNER_DATA, CATEGORY_DATA} from '../../data';
+import {BANNER_DATA, CATEGORY_DATA, HOME_CARD_DATA} from '../../data';
 import {CategoryCard} from '../../components/CategoryCard';
 import {FONT_WEIGHT, SPACING} from '../../constants/sizes';
 import {getItemLayout} from '../../helper/list/GetItemLayout';
+import {HomeCard} from '../../components/HomeCard';
 
 const containerHorizontalPadding = ms(SPACING.SM);
 const Home: React.FC = (): React.JSX.Element => {
@@ -25,6 +26,12 @@ const Home: React.FC = (): React.JSX.Element => {
 
   const bannerItemSeparatorWidth = 10;
   const bannerScrollWidth = fullBannerWidth + bannerItemSeparatorWidth;
+
+  // card width = card width - 2 times container padding
+  const CardWidth = setVw(75) - containerHorizontalPadding * 2;
+
+  const cardItemSeparatorWidth = 15;
+  const cardScrollWidth = CardWidth + cardItemSeparatorWidth;
 
   const [activeCategory, setActiveCategory] = useState<string>(
     CATEGORY_DATA[0].id,
@@ -75,7 +82,7 @@ const Home: React.FC = (): React.JSX.Element => {
             }
           />
           {/* INFO SECTION */}
-          <View style={styles.middle}>
+          <View style={styles.info}>
             <AppText
               style={[
                 styles.popularText,
@@ -101,8 +108,28 @@ const Home: React.FC = (): React.JSX.Element => {
               horizontal
             />
           </View>
-          {/* CARD SECTION */}
-          <View></View>
+        </View>
+        {/* CARD SECTION */}
+        <View style={styles.cardList}>
+          <FlatList
+            data={HOME_CARD_DATA}
+            renderItem={({item}) => (
+              <HomeCard item={item} style={[styles.card, {width: CardWidth}]} />
+            )}
+            keyExtractor={item => item.id.toString()}
+            ItemSeparatorComponent={() => (
+              <ItemSeparator width={cardItemSeparatorWidth} />
+            )}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            snapToInterval={cardScrollWidth}
+            snapToAlignment="center"
+            decelerationRate="fast"
+            // bounces={false}
+            getItemLayout={(data, index) =>
+              getItemLayout(cardScrollWidth, index)
+            }
+          />
         </View>
       </View>
     </AppScreen>
@@ -118,20 +145,31 @@ const styles = StyleSheet.create({
     paddingHorizontal: containerHorizontalPadding,
     // backgroundColor: 'red',
   },
-  search: {
-    marginVertical: ms(SPACING.MD),
-  },
   banner: {
     height: hp(125),
     // width: wp(326),
     borderRadius: SPACING.MD,
   },
-  middle: {
+  cardList: {
+    flex: 0.9,
+    marginTop: ms(SPACING.MD),
+    // backgroundColor: 'red',
+  },
+  card: {
+    // flex: 1,
+    height: '100%',
+    // width: wp(326),
+    borderRadius: SPACING.MD,
+  },
+  info: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: ms(SPACING.MD),
   },
   popularText: {
     fontWeight: FONT_WEIGHT.MEDIUM,
+  },
+  search: {
+    marginVertical: ms(SPACING.MD),
   },
 });
