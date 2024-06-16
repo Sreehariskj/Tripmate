@@ -5,19 +5,29 @@ import {Header} from '../../components/ui/Header';
 import {SearchInput} from '../../components/SearchInput';
 import {COLORS} from '../../constants/colors';
 import {useTheme} from '../../theme/ThemeContext';
-import {hp, ms, wp} from '../../helper/responsive';
-import BannerCard from '../../components/BannerCard';
+import {hp, ms, useViewPort} from '../../helper/responsive';
+import {BannerCard} from '../../components/BannerCard';
 import {ItemSeparator} from '../../components/ui/ItemSeparator';
 import {AppButton} from '../../components/ui/AppButton';
 import {AppText} from '../../components/ui/AppText';
-import {BANNERDATA, CATEGORYDATA} from '../../data';
+import {BANNER_DATA, CATEGORY_DATA} from '../../data';
 import {CategoryCard} from '../../components/CategoryCard';
 import {FONT_WEIGHT, SPACING} from '../../constants/sizes';
+import {getItemLayout} from '../../helper/list/GetItemLayout';
 
+const containerHorizontalPadding = ms(SPACING.SM);
 const Home: React.FC = (): React.JSX.Element => {
   const {isDarkMode, themeColors} = useTheme();
+  const {setVw} = useViewPort();
+
+  // full banner width = full screenwidth - 2 times container padding
+  const fullBannerWidth = setVw(100) - containerHorizontalPadding * 2;
+
+  const bannerItemSeparatorWidth = 10;
+  const bannerScrollWidth = fullBannerWidth + bannerItemSeparatorWidth;
+
   const [activeCategory, setActiveCategory] = useState<string>(
-    CATEGORYDATA[0].id,
+    CATEGORY_DATA[0].id,
   );
 
   // Category
@@ -43,14 +53,26 @@ const Home: React.FC = (): React.JSX.Element => {
         <View>
           {/* BANNER SECTION */}
           <FlatList
-            data={BANNERDATA}
+            data={BANNER_DATA}
             renderItem={({item}) => (
-              <BannerCard item={item} style={styles.banner} />
+              <BannerCard
+                item={item}
+                style={[styles.banner, {width: fullBannerWidth}]}
+              />
             )}
             keyExtractor={item => item.id.toString()}
-            ItemSeparatorComponent={() => <ItemSeparator width={10} />}
+            ItemSeparatorComponent={() => (
+              <ItemSeparator width={bannerItemSeparatorWidth} />
+            )}
             horizontal
-            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            snapToInterval={bannerScrollWidth}
+            snapToAlignment="center"
+            decelerationRate="fast"
+            bounces={false}
+            getItemLayout={(data, index) =>
+              getItemLayout(bannerScrollWidth, index)
+            }
           />
           {/* INFO SECTION */}
           <View style={styles.middle}>
@@ -66,7 +88,7 @@ const Home: React.FC = (): React.JSX.Element => {
           {/* CATEGORY SECTION */}
           <View>
             <FlatList
-              data={CATEGORYDATA}
+              data={CATEGORY_DATA}
               renderItem={({item}) => (
                 <CategoryCard
                   item={item}
@@ -93,7 +115,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // alignItems: 'center',
-    paddingHorizontal: ms(SPACING.SM),
+    paddingHorizontal: containerHorizontalPadding,
     // backgroundColor: 'red',
   },
   search: {
@@ -101,7 +123,7 @@ const styles = StyleSheet.create({
   },
   banner: {
     height: hp(125),
-    width: wp(326),
+    // width: wp(326),
     borderRadius: SPACING.MD,
   },
   middle: {
