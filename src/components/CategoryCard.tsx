@@ -3,6 +3,7 @@ import React from 'react';
 import {AppButton} from './ui/AppButton';
 import {ms} from '../helper/responsive';
 import {FONT_WEIGHT, SPACING} from '../constants/sizes';
+import {useTheme} from '../theme/ThemeContext';
 
 interface CategoryCardProps {
   item: {id: string; name: string};
@@ -16,13 +17,26 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
   onPress,
 }) => {
   const {id, name} = item;
+  const {themeColors} = useTheme();
   return (
     <AppButton
       title={name}
-      variant={activeCategory === id ? 'normal' : 'transparent'}
+      variant="normal"
       onPress={onPress}
-      style={styles.container}
-      textStyle={styles.text}
+      style={[
+        styles.container,
+        {
+          backgroundColor:
+            activeCategory === id ? themeColors.text : 'transparent',
+        },
+      ]}
+      textStyle={[
+        styles.text,
+        {
+          color:
+            activeCategory === id ? themeColors.background : themeColors.text,
+        },
+      ]}
     />
   );
 };

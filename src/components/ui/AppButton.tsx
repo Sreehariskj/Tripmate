@@ -13,6 +13,7 @@ import {
 import {useTheme} from '../../theme/ThemeContext';
 import {ms} from '../../helper/responsive';
 import {ReactChildrenType} from '../../types/index.';
+import {FONT_SIZE} from '../../constants/sizes';
 
 // Define props interface
 interface AppButtonProps {
@@ -29,7 +30,7 @@ interface AppButtonProps {
 export const AppButton: React.FC<AppButtonProps> = ({
   onPress,
   type = 'opacity',
-  variant = 'normal',
+  variant = 'transparent',
   title,
   children,
   style,
@@ -55,7 +56,10 @@ export const AppButton: React.FC<AppButtonProps> = ({
       case 'transparent':
         return {
           backgroundColor: 'transparent',
+          borderRadius: 0,
           borderWidth: 0,
+          paddingVertical: 0,
+          paddingHorizontal: 0,
         };
       default:
         return {}; // Default style
@@ -123,6 +127,6 @@ const styles = {
     backgroundColor: 'red',
   },
   text: {
-    fontSize: ms(15),
+    fontSize: ms(FONT_SIZE.MD),
   },
 };
