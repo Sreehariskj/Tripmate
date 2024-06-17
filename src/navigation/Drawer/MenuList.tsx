@@ -8,7 +8,33 @@ import {useTheme} from '../../theme/ThemeContext';
 export const MenuList = () => {
   const navigation = useNavigation();
   const {themeColors} = useTheme;
-  const menuData = [{name: 'Home', onPress: () => navigation.navigate('Home')}];
+  const menuData = [
+    {
+      name: 'Home',
+      iconName: 'home',
+      onPress: () => navigation.navigate('Home'),
+    },
+    {
+      name: 'Favorite',
+      iconName: 'heart',
+      onPress: () => navigation.navigate('Home'),
+    },
+    {
+      name: 'Profile',
+      iconName: 'account',
+      onPress: () => navigation.navigate('Home'),
+    },
+    {
+      name: 'Feedbacks',
+      iconName: 'comment',
+      onPress: () => navigation.navigate('Home'),
+    },
+    {
+      name: 'Settings',
+      iconName: 'cog',
+      onPress: () => navigation.navigate('Home'),
+    },
+  ];
 
   return (
     <FlatList

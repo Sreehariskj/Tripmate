@@ -3,17 +3,12 @@ import {Appearance} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {LightColors, DarkColors} from './Palette';
-import {
-  ObjectString,
-  ReactChildrenType,
-  ReactComponentType,
-  ReactFCType,
-} from '../types/index.';
+import {ThemeColorsType, ReactChildrenType} from '../types/index.';
 
 interface ThemeContextType {
   isDarkMode: boolean | null;
   toggleTheme: () => void;
-  themeColors: ObjectString;
+  themeColors: ThemeColorsType;
 }
 type Props = {
   children?: ReactChildrenType;
