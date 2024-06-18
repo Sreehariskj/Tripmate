@@ -3,11 +3,11 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {BlurView} from '@react-native-community/blur';
 import Home from '../../screens/Home';
-import {hp, ms, wp} from '../../helper/responsive';
+import {hp, ms, useViewPort, wp} from '../../helper/responsive';
 import {FONT_SIZE, FONT_WEIGHT, SPACING} from '../../constants/sizes';
 import {useTheme} from '../../theme/ThemeContext';
 import {DummyComponent} from '../../components/DummyComponent';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 // TAB SCREEN DATA
 const TAB_SCREEN_DATA = [
@@ -48,42 +48,51 @@ export const RootTabNavigator = () => {
   const Tab = createBottomTabNavigator();
   const {themeColors} = useTheme();
   const iconSize = ms(25);
+  const {setVw, setVh} = useViewPort();
   return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          position: 'absolute',
-          bottom: hp(12),
-          left: 0,
-          right: 0,
-          backgroundColor: 'rgba(0,0,0,.1)', // make tab bar transparent
-          elevation: 0, // remove shadow on Android
-          marginHorizontal: ms(SPACING.SM),
-          height: hp(50),
-          borderRadius: ms(SPACING.XXL),
-          borderTopWidth: 0,
-          overflow: 'hidden',
-        },
-        tabBarBackground: tabBarBackground,
+    <View
+      style={{
+        // fix: resolve tab bar pushing itself up when opening keyboard issue
+        width: setVw(100),
+        height: setVh(100),
       }}>
-      {TAB_SCREEN_DATA.map(item => (
-        <Tab.Screen
-          key={item.name}
-          name={item.name}
-          component={item.component}
-          options={{
-            tabBarIcon: ({color, size, focused}) => (
-              <Icon
-                name={focused ? item.iconName : item.iconFocus}
-                color={themeColors.text}
-                size={iconSize}
-              />
-            ),
-          }}
-        />
-      ))}
-    </Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={{
+          headerShown: false,
+          // tabBarHideOnKeyboard: true,
+          tabBarShowLabel: false,
+          tabBarStyle: {
+            position: 'absolute',
+            bottom: hp(12),
+            left: 0,
+            right: 0,
+            backgroundColor: 'rgba(0,0,0,.1)', // make tab bar transparent
+            elevation: 0, // remove shadow on Android
+            marginHorizontal: ms(SPACING.SM),
+            height: hp(50),
+            borderRadius: ms(SPACING.XXL),
+            borderTopWidth: 0,
+            overflow: 'hidden',
+          },
+          tabBarBackground: tabBarBackground,
+        }}>
+        {TAB_SCREEN_DATA.map(item => (
+          <Tab.Screen
+            key={item.name}
+            name={item.name}
+            component={item.component}
+            options={{
+              tabBarIcon: ({color, size, focused}) => (
+                <Icon
+                  name={focused ? item.iconName : item.iconFocus}
+                  color={themeColors.text}
+                  size={iconSize}
+                />
+              ),
+            }}
+          />
+        ))}
+      </Tab.Navigator>
+    </View>
   );
 };
