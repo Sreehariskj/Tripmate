@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
     justifyContent: 'space-between',
   },
   locationIcon: {},
