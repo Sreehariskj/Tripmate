@@ -3,25 +3,29 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 
-import {ms} from '../../helper/responsive';
 import {useTheme} from '../../theme/ThemeContext';
+import {AppButton} from './AppButton';
+import {ms} from '../../helper/responsive';
+import {SPACING} from '../../constants/sizes';
 
-const imgSize = ms(38);
+const imgSize = ms(28);
 export const Header = () => {
   const navigation = useNavigation();
-  const {isDarkMode, toggleTheme, themeColors} = useTheme();
+  const {themeColors} = useTheme();
   return (
     <View style={[styles.container, {backgroundColor: themeColors.background}]}>
       {/* @ts-ignore */}
-      <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-        <Icon name="menu" size={ms(40)} style={{color: themeColors.text}} />
-      </TouchableOpacity>
-      <View style={styles.left}>
+      <AppButton
+        variant="transparent"
+        onPress={() => navigation.toggleDrawer()}>
+        <Icon name="menu" size={ms(28)} color={themeColors.text} />
+      </AppButton>
+      <AppButton variant="transparent" style={styles.left}>
         <Image
           source={require('../../assets/image/user.jpg')}
           style={styles.userImg}
         />
-      </View>
+      </AppButton>
     </View>
   );
 };
@@ -33,7 +37,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: 50,
-    paddingHorizontal: ms(15),
+    paddingHorizontal: ms(SPACING.MD),
     // backgroundColor:'yellow',
   },
   left: {},

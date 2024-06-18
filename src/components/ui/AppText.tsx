@@ -3,6 +3,7 @@ import React from 'react';
 import {useTheme} from '../../theme/ThemeContext';
 import {ObjectStringNumber, ReactChildrenType} from '../../types/index.';
 import {ms} from '../../helper/responsive';
+import {FONT_SIZE} from '../../constants/sizes';
 
 interface Props {
   children: ReactChildrenType;
@@ -20,6 +21,6 @@ export const AppText: React.FC<Props> = ({children, style}: Props) => {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: ms(20),
+    fontSize: ms(FONT_SIZE.MD),
   },
 });

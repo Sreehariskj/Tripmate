@@ -9,9 +9,9 @@ export const SPACING = {
   };
   
   export const FONT_SIZE = {
-    XS: 12,
-    SM: 14,
-    MD: 16,
+    XS: 10,
+    SM: 12,
+    MD: 14,
     XL: 20,
     XXL: 24,
   };

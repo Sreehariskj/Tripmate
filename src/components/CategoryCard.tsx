@@ -44,6 +44,8 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
 const styles = StyleSheet.create({
   container: {
     borderRadius: ms(SPACING.SM),
+    paddingVertical: ms(SPACING.SM),
+    paddingHorizontal: ms(SPACING.MD),
   },
   text: {
     fontWeight: FONT_WEIGHT.MEDIUM,

@@ -23,7 +23,7 @@ export const SearchInput = ({
     <View style={[styles.container, {borderColor: themeColors.neutral}, style]}>
       <Icon
         name="search"
-        size={ms(FONT_SIZE.XL)}
+        size={ms(FONT_SIZE.XXL)}
         color={themeColors.text}
         style={styles.icon}
       />
@@ -39,16 +39,16 @@ export const SearchInput = ({
 
 const styles = StyleSheet.create({
   container: {
-    height: hp(43),
-    flexDirection: 'row',
+    // backgroundColor: 'red',
+    // marginHorizontal: ms(10),
+    // paddingVertical: ms(SPACING.SM),
     alignItems: 'center',
     borderRadius: ms(FONT_SIZE.XL),
-    paddingVertical: ms(SPACING.SM),
-    paddingHorizontal: ms(SPACING.SM),
-    // marginHorizontal: ms(10),
-    marginVertical: ms(SPACING.SM),
     borderWidth: 1,
-    // backgroundColor: 'red',
+    flexDirection: 'row',
+    height: hp(40),
+    marginVertical: ms(SPACING.SM),
+    paddingHorizontal: ms(SPACING.SM),
   },
   icon: {
     marginRight: SPACING.SM,

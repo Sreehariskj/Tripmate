@@ -12,7 +12,7 @@ import {AppButton} from '../../components/ui/AppButton';
 import {AppText} from '../../components/ui/AppText';
 import {BANNER_DATA, CATEGORY_DATA, HOME_CARD_DATA} from '../../data';
 import {CategoryCard} from '../../components/CategoryCard';
-import {FONT_WEIGHT, SPACING} from '../../constants/sizes';
+import {FONT_SIZE, FONT_WEIGHT, SPACING} from '../../constants/sizes';
 import {getItemLayout} from '../../helper/list/GetItemLayout';
 import {HomeCard} from '../../components/HomeCard';
 
@@ -164,9 +164,12 @@ const styles = StyleSheet.create({
   info: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     marginVertical: ms(SPACING.MD),
+    // backgroundColor: 'red',
   },
   popularText: {
+    fontSize: ms(19),
     fontWeight: FONT_WEIGHT.MEDIUM,
   },
   search: {

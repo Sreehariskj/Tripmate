@@ -13,7 +13,7 @@ import {
 import {useTheme} from '../../theme/ThemeContext';
 import {ms} from '../../helper/responsive';
 import {ReactChildrenType} from '../../types/index.';
-import {FONT_SIZE} from '../../constants/sizes';
+import {FONT_SIZE, SPACING} from '../../constants/sizes';
 
 // Define props interface
 interface AppButtonProps {
@@ -119,8 +119,8 @@ export const AppButton: React.FC<AppButtonProps> = ({
 
 const styles = {
   button: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingVertical: ms(SPACING.SM),
+    paddingHorizontal: ms(SPACING.MD),
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
