@@ -10,16 +10,19 @@ import {BannerCard} from '../../components/BannerCard';
 import {ItemSeparator} from '../../components/ui/ItemSeparator';
 import {AppButton} from '../../components/ui/AppButton';
 import {AppText} from '../../components/ui/AppText';
-import {BANNER_DATA, CATEGORY_DATA, HOME_CARD_DATA} from '../../data';
+import {BANNER_DATA, CATEGORY_DATA} from '../../data';
 import {CategoryCard} from '../../components/CategoryCard';
 import {FONT_SIZE, FONT_WEIGHT, SPACING} from '../../constants/sizes';
 import {getItemLayout} from '../../helper/list/GetItemLayout';
 import {HomeCard} from '../../components/HomeCard';
+import {useSelector} from 'react-redux';
+import type {RootState} from '../../redux/store';
 
 const containerHorizontalPadding = ms(SPACING.SM);
 const Home: React.FC = (): React.JSX.Element => {
   const {isDarkMode, themeColors} = useTheme();
   const {setVw} = useViewPort();
+  const homeCardData = useSelector((state: RootState) => state.homeCard.item);
 
   // full banner width = full screenwidth - 2 times container padding
   const fullBannerWidth = setVw(100) - containerHorizontalPadding * 2;
@@ -112,7 +115,7 @@ const Home: React.FC = (): React.JSX.Element => {
         {/* CARD SECTION */}
         <View style={styles.cardList}>
           <FlatList
-            data={HOME_CARD_DATA}
+            data={homeCardData}
             renderItem={({item}) => (
               <HomeCard item={item} style={[styles.card, {width: CardWidth}]} />
             )}

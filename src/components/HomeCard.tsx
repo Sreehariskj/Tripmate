@@ -8,11 +8,7 @@ import {
   View,
 } from 'react-native';
 import React, {useCallback} from 'react';
-import {AppText} from './ui/AppText';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {ms} from '../helper/responsive';
-import {COLORS} from '../constants/colors';
-import {FONT_SIZE, FONT_WEIGHT, SPACING} from '../constants/sizes';
+
 import {BlurView} from '@react-native-community/blur';
 import Animated, {
   useAnimatedStyle,
@@ -24,6 +20,14 @@ import {
   GestureHandlerRootView,
   TapGestureHandler,
 } from 'react-native-gesture-handler';
+import {useDispatch} from 'react-redux';
+
+import {AppText} from './ui/AppText';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {ms} from '../helper/responsive';
+import {COLORS} from '../constants/colors';
+import {FONT_SIZE, FONT_WEIGHT, SPACING} from '../constants/sizes';
+import {likeItem} from '../redux/Slice/homeCardSlice';
 
 interface BannerCardProps {
   item: any;
@@ -34,17 +38,27 @@ interface BannerCardProps {
 const LikeIconSize = ms(20);
 const LikeIconContainerSize = ms(LikeIconSize + 10);
 export const HomeCard = ({item, style}: BannerCardProps) => {
-  const {id, image, isLiked} = item;
+  const {id, image} = item;
+  const isLiked = item.liked;
+  const dispatch = useDispatch();
+
+  // animated icon component
   const IconComponent = Animated.createAnimatedComponent(Icon);
+
   const scale = useSharedValue(0);
+
+  // double Tap functionality
   const doubleTap = useCallback(() => {
     scale.value = withSpring(1, undefined, isFinished => {
       scale.value = withDelay(100, withSpring(0));
     });
+    dispatch(likeItem(id)); // like item dispatch
   }, []);
+
+  // animation style
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      transform: [{scale: Math.max(scale.value, 0)}],
+      transform: [{scale: isLiked ? Math.max(scale.value, 0) : 0}],
     };
   });
   return (
