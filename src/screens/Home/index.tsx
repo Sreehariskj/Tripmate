@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
     height: '100%',
     // width: wp(326),
     borderRadius: SPACING.MD,
+    overflow: 'hidden',
   },
   info: {
     flexDirection: 'row',
