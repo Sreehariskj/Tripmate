@@ -14,12 +14,16 @@ export const ms = (size: number) => {
 };
 
 export const useViewPort = () => {
-  const {height, width} = useWindowDimensions();
-  const setVw = (val: number) => {
+  const {height, width} = useWindowDimensions(); //  automatically updates all of its values
+
+  // set value of view port width with given percentage
+  const setVw = (val: number | undefined = 0) => {
     const result = val * (width / 100);
     return result;
   };
-  const setVh = (val: number) => {
+
+  // set value of view port height with given percentage
+  const setVh = (val: number | undefined = 0) => {
     const result = val * (height / 100);
     return result;
   };
