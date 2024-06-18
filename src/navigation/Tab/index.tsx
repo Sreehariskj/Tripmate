@@ -58,7 +58,7 @@ export const RootTabNavigator = () => {
           bottom: hp(12),
           left: 0,
           right: 0,
-          backgroundColor: 'transparent', // make tab bar transparent
+          backgroundColor: 'rgba(0,0,0,.1)', // make tab bar transparent
           elevation: 0, // remove shadow on Android
           marginHorizontal: ms(SPACING.SM),
           height: hp(50),
