@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import React, {useCallback} from 'react';
+import React, {useCallback, useRef} from 'react';
 
 import {BlurView} from '@react-native-community/blur';
 import Animated, {
@@ -18,6 +18,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import {
   GestureHandlerRootView,
+  State,
   TapGestureHandler,
 } from 'react-native-gesture-handler';
 import {useDispatch} from 'react-redux';
@@ -41,6 +42,7 @@ export const HomeCard = ({item, style}: BannerCardProps) => {
   const {id, image} = item;
   const isLiked = item.liked;
   const dispatch = useDispatch();
+  const doubleTapRef = useRef(null);
 
   // animated icon component
   const IconComponent = Animated.createAnimatedComponent(Icon);
@@ -52,22 +54,38 @@ export const HomeCard = ({item, style}: BannerCardProps) => {
     scale.value = withSpring(1, undefined, isFinished => {
       scale.value = withDelay(100, withSpring(0));
     });
-    dispatch(likeItem(id)); // like item dispatch
   }, []);
 
   // animation style
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      transform: [{scale: isLiked ? Math.max(scale.value, 0) : 0}],
+      transform: [{scale: Math.max(scale.value, 0)}],
     };
   });
+  const handleSingleTap = (e: any) => {
+    if (e.nativeEvent.state === State.ACTIVE) {
+      console.log('single tapped');
+    }
+  };
+  const handleDoubleTap = (e: any) => {
+    if (e.nativeEvent.state === State.ACTIVE) {
+      dispatch(likeItem(id)); // like item dispatch
+      if (!isLiked) {
+        doubleTap();
+      }
+    }
+  };
   return (
-    <TouchableWithoutFeedback style={[styles.container]}>
-      <GestureHandlerRootView>
+    // <TouchableWithoutFeedback style={[styles.container]}>
+    <GestureHandlerRootView>
+      <TapGestureHandler
+        onHandlerStateChange={handleSingleTap}
+        waitFor={doubleTapRef}>
         <TapGestureHandler
-          maxDelayMs={250}
+          // maxDelayMs={250}
           numberOfTaps={2}
-          onActivated={doubleTap}>
+          onHandlerStateChange={handleDoubleTap}
+          ref={doubleTapRef}>
           <Animated.View style={{flex: 1}}>
             <ImageBackground
               source={image}
@@ -132,8 +150,9 @@ export const HomeCard = ({item, style}: BannerCardProps) => {
             </ImageBackground>
           </Animated.View>
         </TapGestureHandler>
-      </GestureHandlerRootView>
-    </TouchableWithoutFeedback>
+      </TapGestureHandler>
+    </GestureHandlerRootView>
+    // </TouchableWithoutFeedback>
   );
 };
 
