@@ -1,21 +1,10 @@
-import { configureStore  } from '@reduxjs/toolkit'
-import homeCardReducer from './Slice/homeCardSlice'
-
-
-const middlewares:any = [
-  /* other middlewares */
-];
-
-if (__DEV__) {
-  const createDebugger = require('redux-flipper').default;
-  middlewares.push(createDebugger());
-}
+import { configureStore } from '@reduxjs/toolkit'
+import homeCardSlice from './Slice/homeCardSlice'
 
 export const store = configureStore({
   reducer: {
-    homeCard : homeCardReducer
+    homeCard : homeCardSlice
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(middlewares),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
