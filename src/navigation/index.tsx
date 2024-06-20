@@ -1,15 +1,11 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {RootStackNavigator} from './Stack';
-import {Drawer} from './Drawer';
-import {RootTabNavigator} from './Tab';
+import {RootDrawer} from './Drawer';
 
 export const RootNavigator = (): React.JSX.Element => {
   return (
     <NavigationContainer>
-      {/* <Drawer /> */}
-      {/* <RootTabNavigator /> */}
-      <RootStackNavigator />
+      <RootDrawer />
     </NavigationContainer>
   );
 };

@@ -1,16 +1,18 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import Home from '../../screens/Home';
 import {DrawerContent} from './DrawerContent';
-import {RootTabNavigator} from '../Tab';
+import Detail from '../../screens/Home/Detail';
+import {RootStackNavigator} from '../Stack';
 
-export const Drawer = (): React.JSX.Element => {
+export const RootDrawer = (): React.JSX.Element => {
   const Drawer = createDrawerNavigator();
   return (
     <Drawer.Navigator
       drawerContent={props => <DrawerContent {...props} />}
       screenOptions={{headerShown: false}}>
-      <Drawer.Screen name="HomeTab" component={RootTabNavigator} />
+      <Drawer.Screen name="HomeStack" component={RootStackNavigator} />
+      <Drawer.Screen name="Detail" component={Detail} />
+
       {/* Add more screens as needed */}
     </Drawer.Navigator>
   );

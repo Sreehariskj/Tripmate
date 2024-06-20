@@ -17,10 +17,12 @@ import {getItemLayout} from '../../helper/list/GetItemLayout';
 import {HomeCard} from '../../components/HomeCard';
 import {useSelector} from 'react-redux';
 import type {RootState} from '../../redux/store';
+import {useNavigation} from '@react-navigation/native';
 
 const containerHorizontalPadding = ms(SPACING.SM);
 const Home: React.FC = (): React.JSX.Element => {
   const {isDarkMode, themeColors} = useTheme();
+  const navigation = useNavigation();
   const {setVw} = useViewPort();
   const homeCardData = useSelector((state: RootState) => state.homeCard.item);
 
@@ -48,6 +50,11 @@ const Home: React.FC = (): React.JSX.Element => {
   // Search
   const onSearchText = (text: string) => {
     console.log(text);
+  };
+
+  // Home Card
+  const onCardSingleTap = () => {
+    navigation.navigate('Detail');
   };
 
   return (
@@ -117,7 +124,11 @@ const Home: React.FC = (): React.JSX.Element => {
           <FlatList
             data={homeCardData}
             renderItem={({item}) => (
-              <HomeCard item={item} style={[styles.card, {width: CardWidth}]} />
+              <HomeCard
+                item={item}
+                style={[styles.card, {width: CardWidth}]}
+                onSingleTap={onCardSingleTap}
+              />
             )}
             keyExtractor={item => item.id.toString()}
             ItemSeparatorComponent={() => (

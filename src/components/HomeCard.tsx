@@ -32,13 +32,13 @@ import {likeItem} from '../redux/Slice/homeCardSlice';
 
 interface BannerCardProps {
   item: any;
-  onPress: () => void;
+  onSingleTap: () => void;
   style: StyleProp<ImageStyle>;
 }
 
 const LikeIconSize = ms(20);
 const LikeIconContainerSize = ms(LikeIconSize + 10);
-export const HomeCard = ({item, style}: BannerCardProps) => {
+export const HomeCard = ({item, onSingleTap, style}: BannerCardProps) => {
   const {id, image} = item;
   const isLiked = item.liked;
   const dispatch = useDispatch();
@@ -64,7 +64,7 @@ export const HomeCard = ({item, style}: BannerCardProps) => {
   });
   const handleSingleTap = (e: any) => {
     if (e.nativeEvent.state === State.ACTIVE) {
-      console.log('single tapped');
+      onSingleTap();
     }
   };
   const handleDoubleTap = (e: any) => {
