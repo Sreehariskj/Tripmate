@@ -38,3 +38,7 @@ export const HOME_CARD_DATA = [
     rating: '4.0',
   },
 ];
+export const DETAIL_OPTION_DATA = [
+  {id: 'overview', name: 'Overview'},
+  {id: 'details', name: 'Details'},
+];

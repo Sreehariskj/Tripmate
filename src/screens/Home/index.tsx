@@ -53,8 +53,8 @@ const Home: React.FC = (): React.JSX.Element => {
   };
 
   // Home Card
-  const onCardSingleTap = () => {
-    navigation.navigate('Detail');
+  const onCardSingleTap = item => {
+    navigation.navigate('Detail', {item: item});
   };
 
   return (
@@ -127,7 +127,7 @@ const Home: React.FC = (): React.JSX.Element => {
               <HomeCard
                 item={item}
                 style={[styles.card, {width: CardWidth}]}
-                onSingleTap={onCardSingleTap}
+                onSingleTap={() => onCardSingleTap(item)}
               />
             )}
             keyExtractor={item => item.id.toString()}
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     borderRadius: SPACING.MD,
   },
   cardList: {
-    flex: 0.9,
+    height: hp(300),
     marginTop: ms(SPACING.MD),
     // backgroundColor: 'red',
   },

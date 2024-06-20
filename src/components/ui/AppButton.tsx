@@ -13,7 +13,7 @@ import {
 import {useTheme} from '../../theme/ThemeContext';
 import {ms} from '../../helper/responsive';
 import {ReactChildrenType} from '../../types/index.';
-import {FONT_SIZE, SPACING} from '../../constants/sizes';
+import {FONT_SIZE, FONT_WEIGHT, SPACING} from '../../constants/sizes';
 
 // Define props interface
 interface AppButtonProps {
@@ -128,5 +128,6 @@ const styles = {
   },
   text: {
     fontSize: ms(FONT_SIZE.MD),
+    fontWeight: FONT_WEIGHT.MEDIUM,
   },
 };

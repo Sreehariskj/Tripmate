@@ -32,7 +32,7 @@ import {likeItem} from '../redux/Slice/homeCardSlice';
 
 interface BannerCardProps {
   item: any;
-  onSingleTap: () => void;
+  onSingleTap?: () => void;
   style: StyleProp<ImageStyle>;
 }
 
@@ -77,7 +77,7 @@ export const HomeCard = ({item, onSingleTap, style}: BannerCardProps) => {
   };
   return (
     // <TouchableWithoutFeedback style={[styles.container]}>
-    <GestureHandlerRootView>
+    <GestureHandlerRootView style={style}>
       <TapGestureHandler
         onHandlerStateChange={handleSingleTap}
         waitFor={doubleTapRef}>
@@ -169,13 +169,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: 'transparent',
     borderRadius: ms(12),
-    bottom: ms(40),
+    bottom: '5%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     overflow: 'hidden',
     paddingHorizontal: ms(SPACING.SM),
     paddingVertical: ms(SPACING.MD),
     width: '92%',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.6)',
   },
   bottomText: {
     color: COLORS.LIGHT,
@@ -217,7 +219,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    // backgroundColor: 'red',
+    overflow: 'hidden',
     justifyContent: 'space-between',
   },
   locationIcon: {},
