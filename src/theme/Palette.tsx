@@ -3,7 +3,7 @@ import {ThemeColorsType} from '../types/index.';
 const LightColors: ThemeColorsType = {
   primary: '#66FCF1', // Green
   secondary: '#45A29E', // Amber
-  background: '#FFFFFF', // White
+  background: '#F5F5F5', // White
   neutral: '#626872', // Gunmetal Gray
   text: '#333333', // Dark Gray
   accent: '#f5f6F8', // Blue
@@ -18,7 +18,7 @@ const DarkColors: ThemeColorsType = {
   secondary: '#FFD54F', // Darker Amber
   background: '#333333', // Dark Gray
   neutral: '#4E545C', // Gunmetal Gray
-  text: '#FFFFFF', // White
+  text: '#E5E5E5', // White
   accent: '#454545', // Mid BLACK
   error: '#FF8A80', // Darker Red
   warning: '#FFB74D', // Darker Orange
