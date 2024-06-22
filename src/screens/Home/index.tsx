@@ -15,16 +15,18 @@ import {CategoryCard} from '../../components/CategoryCard';
 import {FONT_SIZE, FONT_WEIGHT, SPACING} from '../../constants/sizes';
 import {getItemLayout} from '../../helper/list/GetItemLayout';
 import {HomeCard} from '../../components/HomeCard';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import type {RootState} from '../../redux/store';
 import {useNavigation} from '@react-navigation/native';
+import {selectedItem} from '../../redux/Slice/homeCardSlice';
 
 const containerHorizontalPadding = ms(SPACING.SM);
 const Home: React.FC = (): React.JSX.Element => {
   const {isDarkMode, themeColors} = useTheme();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const {setVw} = useViewPort();
-  const homeCardData = useSelector((state: RootState) => state.homeCard.item);
+  const homeCardData = useSelector((state: RootState) => state.homeCard.items);
 
   // full banner width = full screenwidth - 2 times container padding
   const fullBannerWidth = setVw(100) - containerHorizontalPadding * 2;
@@ -54,7 +56,8 @@ const Home: React.FC = (): React.JSX.Element => {
 
   // Home Card
   const onCardSingleTap = item => {
-    navigation.navigate('Detail', {item: item});
+    dispatch(selectedItem(item.id));
+    navigation.navigate('Detail');
   };
 
   return (

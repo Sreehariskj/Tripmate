@@ -28,17 +28,26 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {ms} from '../helper/responsive';
 import {COLORS} from '../constants/colors';
 import {FONT_SIZE, FONT_WEIGHT, SPACING} from '../constants/sizes';
-import {likeItem} from '../redux/Slice/homeCardSlice';
+import {likeItem, selectedItem} from '../redux/Slice/homeCardSlice';
 
 interface BannerCardProps {
   item: any;
   onSingleTap?: () => void;
   style: StyleProp<ImageStyle>;
+  showDoubleTapAnimation?: boolean;
+  isDetail?: boolean;
 }
 
 const LikeIconSize = ms(20);
 const LikeIconContainerSize = ms(LikeIconSize + 10);
-export const HomeCard = ({item, onSingleTap, style}: BannerCardProps) => {
+const BaseColor = COLORS.CREAM;
+export const HomeCard = ({
+  item,
+  onSingleTap,
+  style,
+  showDoubleTapAnimation = true,
+  isDetail = false,
+}: BannerCardProps) => {
   const {id, image} = item;
   const isLiked = item.liked;
   const dispatch = useDispatch();
@@ -50,7 +59,7 @@ export const HomeCard = ({item, onSingleTap, style}: BannerCardProps) => {
   const scale = useSharedValue(0);
 
   // double Tap functionality
-  const doubleTap = useCallback(() => {
+  const doubleTapAnimation = useCallback(() => {
     scale.value = withSpring(1, undefined, isFinished => {
       scale.value = withDelay(100, withSpring(0));
     });
@@ -64,14 +73,23 @@ export const HomeCard = ({item, onSingleTap, style}: BannerCardProps) => {
   });
   const handleSingleTap = (e: any) => {
     if (e.nativeEvent.state === State.ACTIVE) {
-      onSingleTap();
+      if (onSingleTap) {
+        onSingleTap();
+      }
     }
   };
   const handleDoubleTap = (e: any) => {
     if (e.nativeEvent.state === State.ACTIVE) {
-      dispatch(likeItem(id)); // like item dispatch
+      if (showDoubleTapAnimation) {
+        dispatch(likeItem(id)); // like item dispatch
+        if (isDetail) {
+          dispatch(selectedItem(id));
+        }
+      }
       if (!isLiked) {
-        doubleTap();
+        if (showDoubleTapAnimation) {
+          doubleTapAnimation();
+        }
       }
     }
   };
@@ -116,7 +134,7 @@ export const HomeCard = ({item, onSingleTap, style}: BannerCardProps) => {
                     <Icon
                       name="map-marker-outline"
                       size={ms(18)}
-                      color={COLORS.LIGHT}
+                      color={BaseColor}
                       style={[styles.locationIcon]}
                     />
                     <AppText style={[styles.bottomText, styles.locationText]}>
@@ -143,7 +161,7 @@ export const HomeCard = ({item, onSingleTap, style}: BannerCardProps) => {
               </View>
               <IconComponent
                 name="heart"
-                color={COLORS.LIGHT}
+                color={BaseColor}
                 size={ms(100)}
                 style={[styles.doubleTap, animatedStyle]}
               />
@@ -169,7 +187,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: 'transparent',
     borderRadius: ms(12),
-    bottom: '5%',
+    bottom: '12%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     overflow: 'hidden',
@@ -180,7 +198,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.6)',
   },
   bottomText: {
-    color: COLORS.LIGHT,
+    color: BaseColor,
     fontSize: ms(FONT_SIZE.MD),
     fontWeight: FONT_WEIGHT.MEDIUM,
     // backgroundColor: 'gray',

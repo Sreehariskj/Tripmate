@@ -2,7 +2,16 @@ import {createSlice} from '@reduxjs/toolkit';
 import {HOME_CARD_DATA} from '../../data';
 
 const initialState = {
-  item: HOME_CARD_DATA,
+  items: HOME_CARD_DATA,
+  selectedItem: {
+    id: -1,
+    image: require('../../assets/image/destination.jpeg'),
+    liked: false,
+    location: '',
+    name: '',
+    rate: {value: '', currency: '', code: ''},
+    rating: '',
+  },
 };
 
 export const homeCardSlice = createSlice({
@@ -11,13 +20,20 @@ export const homeCardSlice = createSlice({
   reducers: {
     likeItem: (state, action) => {
       const itemId = action.payload;
-      const item = state.item.find(item => item.id === itemId);
+      const item = state.items.find(item => item.id === itemId);
       if (item) {
         item.liked = !item.liked;
+      }
+    },
+    selectedItem: (state, action) => {
+      const itemId = action.payload;
+      const item = state.items.find(item => item.id === itemId);
+      if (item) {
+        state.selectedItem = item;
       }
     },
   },
 });
 
-export const {likeItem} = homeCardSlice.actions;
+export const {likeItem, selectedItem} = homeCardSlice.actions;
 export default homeCardSlice.reducer;

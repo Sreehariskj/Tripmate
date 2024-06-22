@@ -10,17 +10,22 @@ import {DETAIL_OPTION_DATA} from '../../data';
 import {useTheme} from '../../theme/ThemeContext';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppScroll from '../../components/ui/AppScroll';
+import {useSelector} from 'react-redux';
 
 const Detail = ({route}) => {
-  const params = route.params;
+  // const params = route.params;
+  const item = useSelector((state: RootState) => state.homeCard.selectedItem);
   const [selectedOption, setSelectionOption] = useState(
     DETAIL_OPTION_DATA[0].id,
   );
   const {themeColors} = useTheme();
+
+  // Function : handle option selection on btn press
   const onOption = id => {
     setSelectionOption(() => id);
   };
 
+  // Component : contains icon and text component
   const IconTextComponent = ({text, iconName}) => (
     <View style={[styles.flexRow, styles.infoComponent]}>
       <Icon name={iconName} color={themeColors.text} size={ms(25)} />
@@ -31,8 +36,10 @@ const Detail = ({route}) => {
     <AppScreen>
       <View style={styles.container}>
         <AppScroll>
-          <HomeCard item={params.item} style={styles.card} />
+          <HomeCard item={item} style={styles.card} isDetail={true} />
+          {/* BOTTOM CONTAINER */}
           <View>
+            {/* OPTION SECTION */}
             <View style={styles.optionBtnBox}>
               {DETAIL_OPTION_DATA.map(opt => (
                 <AppButton
@@ -61,6 +68,7 @@ const Detail = ({route}) => {
                 />
               ))}
             </View>
+            {/* INFO SECTION */}
             <View style={[styles.flexRow, styles.infoBox]}>
               <IconTextComponent
                 iconName="clock-time-three"
@@ -68,7 +76,9 @@ const Detail = ({route}) => {
               />
               <IconTextComponent iconName="apple-icloud" text={'18° c'} />
             </View>
+            {/* BOTTOM SECTION */}
             <View>
+              {/* DESCRIPTION SECTION */}
               <AppText style={[styles.description]}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Expedita sapiente minus enim et praesentium, veniam
@@ -78,6 +88,7 @@ const Detail = ({route}) => {
                 perferendis iure ipsum tenetur.
               </AppText>
             </View>
+            {/* BOOK NOW SECTION */}
             <View style={[styles.bookBtnBox]}>
               <AppButton
                 style={styles.bookBtn}
@@ -96,7 +107,7 @@ export default Detail;
 
 const styles = StyleSheet.create({
   bookBtnBox: {
-    marginTop: ms(24),
+    marginVertical: ms(24),
   },
   bookBtn: {
     borderRadius: ms(20),
