@@ -1,19 +1,16 @@
-import {StyleProp, StyleSheet, Text, TextStyle, View} from 'react-native';
+import {StyleProp, StyleSheet, Text, TextStyle} from 'react-native';
 import React from 'react';
-import {useTheme} from '../../theme/ThemeContext';
-import {ObjectStringNumber, ReactChildrenType} from '../../types/index.';
-import {ms} from '../../helper/responsive';
-import {FONT_SIZE} from '../../constants/sizes';
+import {ReactChildrenType} from '../../types/index.';
 
 interface Props {
   children: ReactChildrenType;
   style?: StyleProp<TextStyle>;
+  [x: string]: any;
 }
 
-export const AppText: React.FC<Props> = ({children, style}: Props) => {
-  const {themeColors} = useTheme();
+export const AppText: React.FC<Props> = ({children, style,...rest}: Props) => {
   return (
-    <Text style={[styles.text, {color: themeColors.text}, style]}>
+    <Text style={[styles.text, style]} {...rest}>
       {children}
     </Text>
   );
@@ -21,6 +18,6 @@ export const AppText: React.FC<Props> = ({children, style}: Props) => {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: ms(FONT_SIZE.MD),
+    fontSize: 16, // add as needed
   },
 });

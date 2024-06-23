@@ -12,13 +12,16 @@ import {Provider} from 'react-redux';
 import {RootNavigator} from './src/navigation';
 import {ThemeProvider} from './src/theme/ThemeContext';
 import {store} from './src/redux/store';
+import { TestProvider } from './src/context/testContext';
 
 const App = (): JSX.Element => {
   return (
     <>
       <Provider store={store}>
         <ThemeProvider>
+          <TestProvider>
           <RootNavigator />
+          </TestProvider>
         </ThemeProvider>
       </Provider>
     </>

@@ -8,6 +8,7 @@ import {FONT_SIZE, FONT_WEIGHT, SPACING} from '../../constants/sizes';
 import {useTheme} from '../../theme/ThemeContext';
 import {DummyComponent} from '../../components/DummyComponent';
 import {StyleSheet, View} from 'react-native';
+import ProfileScreen from '../../screens/Profile';
 
 // TAB SCREEN DATA
 const TAB_SCREEN_DATA = [
@@ -26,7 +27,7 @@ const TAB_SCREEN_DATA = [
   },
   {
     name: 'User',
-    component: DummyComponent,
+    component: ProfileScreen,
     iconName: 'account',
     iconFocus: 'account-outline',
   },
