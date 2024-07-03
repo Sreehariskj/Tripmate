@@ -19,6 +19,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import type {RootState} from '../../redux/store';
 import {useNavigation} from '@react-navigation/native';
 import {selectedItem} from '../../redux/Slice/homeCardSlice';
+import AppScroll from '../../components/ui/AppScroll';
 
 const containerHorizontalPadding = ms(SPACING.SM);
 const Home: React.FC = (): React.JSX.Element => {
@@ -63,6 +64,7 @@ const Home: React.FC = (): React.JSX.Element => {
   return (
     <AppScreen>
       <Header />
+      <AppScroll>
       <View style={styles.container}>
         <SearchInput
           placeholder="Search here"
@@ -149,6 +151,7 @@ const Home: React.FC = (): React.JSX.Element => {
           />
         </View>
       </View>
+      </AppScroll>
     </AppScreen>
   );
 };
