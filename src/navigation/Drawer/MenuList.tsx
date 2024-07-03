@@ -1,9 +1,9 @@
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import MenuCard from './MenuCard';
-import {ms} from '../../helper/responsive';
+import {ms} from '../../../../Tripmate/src/helper/responsive';
 import {useNavigation} from '@react-navigation/native';
-import {useTheme} from '../../theme/ThemeContext';
+import {useTheme} from '../../../../Tripmate/src/theme/ThemeContext';
 
 export const MenuList = () => {
   const navigation = useNavigation();

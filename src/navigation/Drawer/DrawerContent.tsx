@@ -1,14 +1,14 @@
 // DrawerContent.tsx
 import React from 'react';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
-import {ms} from '../../helper/responsive';
-import {AppText} from '../../components/ui/AppText';
+import {ms} from '../../../../Tripmate/src/helper/responsive';
+import {AppText} from '../../../../Tripmate/src/components/ui/AppText';
 import IonicIcon from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {useTheme} from '../../theme/ThemeContext';
+import {useTheme} from '../../../../Tripmate/src/theme/ThemeContext';
 import {MenuList} from './MenuList';
-import {FONT_WEIGHT} from '../../constants/sizes';
-import {COLORS} from '../../constants/colors';
+import {FONT_WEIGHT} from '../../../../Tripmate/src/constants/sizes';
+import {COLORS} from '../../../../Tripmate/src/constants/colors';
 
 const imgSize = ms(50);
 const iconSize = ms(30);

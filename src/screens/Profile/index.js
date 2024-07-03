@@ -1,11 +1,12 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import { AppText } from '../../components/ui/AppText';
+import { AppTextInput } from '../../components/ui/AppTextInput';
 
 const HomeScreen = () => {
   return (
       <View style={styles.container}>
-        <AppText style={styles.titleText}>Home Screen</AppText>
+        <AppTextInput style={styles.titleText} />
       </View>
   );
 };

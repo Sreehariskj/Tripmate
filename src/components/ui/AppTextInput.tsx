@@ -1,29 +1,45 @@
-import {StyleProp, StyleSheet, TextInput, TextStyle} from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextInput,
+  TextInputProps,
+  TextStyle,
+} from 'react-native';
 import React from 'react';
-import {useTheme} from '../../theme/ThemeContext';
-import {ObjectStringNumber, ReactChildrenType} from '../../types/index.';
-import {ms} from '../../helper/responsive';
 
-interface TextInputProps {
+interface CustomProps {
   style: StyleProp<TextStyle>;
-  [x: string]: any;
+  isPassword?: boolean;
+  error?: string;
 }
-
-export const AppTextInput = ({style, ...rest}: TextInputProps) => {
-  const {themeColors} = useTheme();
+type Props = CustomProps & TextInputProps;
+export const AppTextInput = ({
+  style,
+  error,
+  isPassword = false,
+  ...rest
+}: Props) => {
   return (
-    <TextInput
-      {...rest}
-      style={[styles.input, {color: themeColors.text}, style]}
-    />
+    <>
+      <TextInput
+        {...rest}
+        secureTextEntry={isPassword}
+        style={[styles.input, style]}
+      />
+      {!!error && <Text style={styles.error}>{error}</Text>}
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   input: {
     flex: 1,
-    fontSize: ms(16),
-    paddingLeft: ms(2),
-    // backgroundColor: 'yellow',
+    fontSize: 16,
+    paddingLeft: 2,
+  },
+  error: {
+    marginTop: 5,
+    color: 'red',
   },
 });

@@ -7,11 +7,11 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {AppText} from '../../components/ui/AppText';
-import {ms} from '../../helper/responsive';
-import {useTheme} from '../../theme/ThemeContext';
+import {AppText} from '../../../../Tripmate/src/components/ui/AppText';
+import {ms} from '../../../../Tripmate/src/helper/responsive';
+import {useTheme} from '../../../../Tripmate/src/theme/ThemeContext';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {SPACING} from '../../constants/sizes';
+import {SPACING} from '../../../../Tripmate/src/constants/sizes';
 
 interface Props {
   name: string;

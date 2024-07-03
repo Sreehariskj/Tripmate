@@ -1,8 +1,8 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {DrawerContent} from './DrawerContent';
-import Detail from '../../screens/Home/Detail';
-import {RootStackNavigator} from '../Stack';
+import Detail from '../../../../Tripmate/src/screens/Home/Detail';
+import {RootStackNavigator} from '../../../../Tripmate/src/navigation/Stack';
 
 export const RootDrawer = (): React.JSX.Element => {
   const Drawer = createDrawerNavigator();
